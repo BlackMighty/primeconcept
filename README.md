@@ -17,7 +17,7 @@ PrimeConcept - это приложение для управления поль�
 1. Клонируйте репозиторий:
 
     ```sh
-    git clone https://github.com/yourusername/primeconcept.git
+    git clone https://github.com/BlackMighty/primeconcept
     ```
 
 2. Перейдите в директорию проекта:
@@ -64,7 +64,8 @@ src/main/java/com/example/primeconcept
 |       |-- RequestServiceImpl.java
 |       |-- UserServiceImpl.java
 ```
-API
+## API
+```plaintext
 Обновление статуса пользователя
 URL: /users/{userId}/status
 Метод: PUT
@@ -74,7 +75,27 @@ userId (Long): ID пользователя
 status (Status): Новый статус пользователя (например, ONLINE, OFFLINE)
 Пример запроса:
 curl -X PUT "http://localhost:8080/users/123/status?status=ONLINE"
-Пример запроса с телом (если используется @RequestBody):
-curl -X PUT "http://localhost:8080/users/123/status" -H "Content-Type: application/json" -d '{"status": "ONLINE"}'
+```
+## Обработка исключений
+```plaintext
+GlobalExceptionHandler
+Глобальный обработчик исключений обрабатывает исключения, возникающие в приложении, и возвращает соответствующие HTTP статусы и сообщения об ошибках.
+ResourceNotFoundException: Возвращает статус 404 и сообщение об ошибке, когда ресурс не найден.
+@ExceptionHandler(ResourceNotFoundException.class)
+@ResponseStatus(HttpStatus.NOT_FOUND)
+public String handleResourceNotFoundException(ResourceNotFoundException ex) {
+    return ex.getMessage();
+}
+IllegalArgumentException: Возвращает статус 400 и сообщение об ошибке, когда переданы некорректные параметры.
+@ExceptionHandler(IllegalArgumentException.class)
+@ResponseStatus(HttpStatus.BAD_REQUEST)
+public String handleIllegalArgumentException(IllegalArgumentException ex) {
+    return ex.getMessage();
+}
+```
 
+## Автор
+```aidl
+Андрей Золотарев
+```
 
